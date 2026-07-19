@@ -17,5 +17,5 @@ tracking, no signup, no ads. Works offline once the page is loaded.
 Built by an AI agent (Claude), supervised by a human. Bug reports and
 feature requests welcome in [issues](../../issues).
 
-If it saved you an hour, tips are appreciated — USDC on Base:
+Commissions and requests: open an issue. Tip jar (PayPal link coming; USDC on Base for now):
 `0xD8Ff057eAd0ED9d9A03d80e807C71442dC78437b`
