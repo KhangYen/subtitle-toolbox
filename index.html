@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subtitle Toolbox — free SRT/VTT converter, resync & cleaner. No upload.</title>
+<meta name="description" content="Fix, convert, resync and clean SRT/VTT subtitle files entirely in your browser. Nothing is uploaded — your files never leave your device. Free, no signup, no ads.">
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #1a1d21; --muted: #5c6470;
+    --accent: #2563eb; --accent-text: #ffffff; --border: #d8dde3; --ok: #16794c; --warn: #b45309;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101318; --panel: #181d24; --text: #e8eaed; --muted: #98a1ad;
+      --accent: #3b82f6; --accent-text: #ffffff; --border: #2a323d; --ok: #34d399; --warn: #fbbf24;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+  header { max-width: 1100px; margin: 0 auto; padding: 28px 20px 8px; }
+  h1 { margin: 0 0 4px; font-size: 26px; }
+  .tagline { color: var(--muted); margin: 0 0 8px; }
+  .privacy { font-size: 13px; color: var(--ok); margin: 0; }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { main { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .panel h2 { margin: 0 0 10px; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  textarea { width: 100%; height: 300px; resize: vertical; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .drop { border: 2px dashed var(--border); border-radius: 8px; padding: 10px; text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 10px; cursor: pointer; }
+  .drop.dragover { border-color: var(--accent); color: var(--accent); }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; align-items: center; }
+  button { background: var(--accent); color: var(--accent-text); border: 0; border-radius: 8px; padding: 9px 14px; font-size: 14px; cursor: pointer; font-weight: 600; }
+  button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  button:hover { filter: brightness(1.1); }
+  label { font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  input[type="number"], input[type="text"] { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: 13px; width: 110px; }
+  fieldset { border: 1px solid var(--border); border-radius: 8px; margin: 0 0 12px; padding: 10px 12px; }
+  legend { font-size: 12px; color: var(--muted); padding: 0 6px; text-transform: uppercase; letter-spacing: .04em; }
+  .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  @media (max-width: 500px) { .checks { grid-template-columns: 1fr; } }
+  .status { font-size: 13px; color: var(--muted); min-height: 18px; margin-top: 6px; }
+  .status.ok { color: var(--ok); }
+  .status.warn { color: var(--warn); }
+  footer { max-width: 1100px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--accent); }
+  code { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: 12px; word-break: break-all; }
+  .faq h3 { font-size: 14px; margin: 14px 0 2px; color: var(--text); }
+  .faq p { margin: 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Subtitle Toolbox</h1>
+  <p class="tagline">Convert, resync, clean and transcript-ify SRT / VTT subtitle files — the tedious parts, done in seconds.</p>
+  <p class="privacy">✓ 100% in your browser. Nothing is uploaded anywhere. Works offline once loaded.</p>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Input</h2>
+    <div class="drop" id="drop">Drop an .srt / .vtt / .txt file here, or click to choose — or just paste below</div>
+    <input type="file" id="file" accept=".srt,.vtt,.txt,.sub" style="display:none">
+    <textarea id="input" placeholder="1&#10;00:00:01,000 --> 00:00:04,000&#10;Paste your subtitles here…" spellcheck="false"></textarea>
+    <div class="status" id="inStatus"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Output</h2>
+    <textarea id="output" readonly spellcheck="false"></textarea>
+    <div class="controls">
+      <button id="copy">Copy</button>
+      <button id="download" class="secondary">Download</button>
+      <span class="status" id="outStatus"></span>
+    </div>
+  </section>
+
+  <section class="panel" style="grid-column: 1 / -1;">
+    <h2>Actions</h2>
+    <fieldset>
+      <legend>Convert</legend>
+      <div class="controls">
+        <button data-act="tosrt">→ SRT</button>
+        <button data-act="tovtt">→ VTT</button>
+        <button data-act="totxt">→ Plain transcript</button>
+        <label><input type="checkbox" id="txtJoin" checked> transcript: join lines into paragraphs</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Resync (shift every timestamp)</legend>
+      <div class="controls">
+        <label>Shift by <input type="number" id="shiftMs" value="1000" step="100"> ms</label>
+        <button data-act="shiftplus">Shift later (+)</button>
+        <button data-act="shiftminus">Shift earlier (−)</button>
+        <span class="status">Subs appear too early → shift later. Too late → shift earlier.</span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Clean</legend>
+      <div class="checks">
+        <label><input type="checkbox" id="cTags" checked> Strip formatting tags (&lt;i&gt;, &lt;font&gt;, {\an8}…)</label>
+        <label><input type="checkbox" id="cHi" checked> Remove hearing-impaired text ([music], (SIGHS)…)</label>
+        <label><input type="checkbox" id="cBlank" checked> Drop empty cues</label>
+        <label><input type="checkbox" id="cRenum" checked> Fix numbering</label>
+        <label><input type="checkbox" id="cSpace" checked> Normalize spaces</label>
+        <label><input type="checkbox" id="cOverlap"> Fix overlapping timestamps</label>
+      </div>
+      <div class="controls"><button data-act="clean">Clean it</button></div>
+    </fieldset>
+    <fieldset>
+      <legend>Find &amp; replace (all cues)</legend>
+      <div class="controls">
+        <input type="text" id="findText" placeholder="find">
+        <input type="text" id="replText" placeholder="replace with">
+        <label><input type="checkbox" id="frRegex"> regex</label>
+        <button data-act="replace">Replace all</button>
+      </div>
+    </fieldset>
+  </section>
+
+  <section class="panel faq" style="grid-column: 1 / -1;">
+    <h2>FAQ</h2>
+    <h3>Is my file uploaded to a server?</h3>
+    <p>No. This page has no backend and makes no network requests with your data. Everything runs in your browser's memory.</p>
+    <h3>What formats are supported?</h3>
+    <p>SRT and VTT in, plus SRT / VTT / plain-text transcript out. Malformed files are parsed leniently — the tool recovers what it can.</p>
+    <h3>My subtitles are out of sync with the video. Which shift do I use?</h3>
+    <p>If the text shows up <em>before</em> people speak, shift later (+). If it lags <em>behind</em>, shift earlier (−). Typical fixes are 500–3000 ms.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Free forever, no signup, no ads. Built by an AI agent (Claude), supervised by a human — <a href="https://github.com/KhangYen/subtitle-toolbox/issues" rel="noopener">report a bug or request a feature</a>.</p>
+  <p>Saved you an hour? Tips appreciated (USDC on Base): <code>0xD8Ff057eAd0ED9d9A03d80e807C71442dC78437b</code></p>
+</footer>
+
+<script>
+"use strict";
+
+// ---------- parsing ----------
+// A cue: { start: ms, end: ms, text: "line1\nline2" }
+
+function parseTimestamp(s) {
+  // Accepts 00:00:01,000 / 00:00:01.000 / 00:01.000 (VTT short form)
+  const m = s.trim().match(/^(?:(\d{1,2}):)?(\d{1,2}):(\d{1,2})[.,](\d{1,3})$/);
+  if (!m) return null;
+  const h = parseInt(m[1] || "0", 10), min = parseInt(m[2], 10),
+        sec = parseInt(m[3], 10), ms = parseInt(m[4].padEnd(3, "0"), 10);
+  return ((h * 60 + min) * 60 + sec) * 1000 + ms;
+}
+
+function fmtTimestamp(ms, sep) {
+  ms = Math.max(0, Math.round(ms));
+  const h = Math.floor(ms / 3600000), m = Math.floor(ms % 3600000 / 60000),
+        s = Math.floor(ms % 60000 / 1000), r = ms % 1000;
+  const pad = (n, w) => String(n).padStart(w, "0");
+  return `${pad(h,2)}:${pad(m,2)}:${pad(s,2)}${sep}${pad(r,3)}`;
+}
+
+function parseCues(raw) {
+  // Lenient block parser for SRT and VTT.
+  const text = raw.replace(/\r\n?/g, "\n").replace(/^﻿/, "");
+  const cues = [];
+  const blocks = text.split(/\n{2,}/);
+  for (const block of blocks) {
+    const lines = block.split("\n").map(l => l.trim()).filter(l => l.length);
+    if (!lines.length) continue;
+    if (/^WEBVTT/i.test(lines[0]) || /^NOTE(\s|$)/i.test(lines[0]) || /^STYLE$/i.test(lines[0])) continue;
+    let i = 0;
+    // optional numeric index or VTT cue identifier line before the arrow line
+    if (i < lines.length && !lines[i].includes("-->") && i + 1 < lines.length && lines[i + 1].includes("-->")) i++;
+    if (i >= lines.length || !lines[i].includes("-->")) continue;
+    const [a, b] = lines[i].split("-->");
+    // VTT arrow lines may carry settings after the end time: "00:00:04.000 align:start"
+    const start = parseTimestamp(a), end = parseTimestamp((b || "").trim().split(/\s+/)[0]);
+    if (start === null || end === null) continue;
+    cues.push({ start, end, text: lines.slice(i + 1).join("\n") });
+  }
+  return cues;
+}
+
+// ---------- serializing ----------
+function toSRT(cues) {
+  return cues.map((c, i) =>
+    `${i + 1}\n${fmtTimestamp(c.start, ",")} --> ${fmtTimestamp(c.end, ",")}\n${c.text}`
+  ).join("\n\n") + "\n";
+}
+
+function toVTT(cues) {
+  return "WEBVTT\n\n" + cues.map(c =>
+    `${fmtTimestamp(c.start, ".")} --> ${fmtTimestamp(c.end, ".")}\n${c.text}`
+  ).join("\n\n") + "\n";
+}
+
+function toTranscript(cues, join) {
+  const lines = cues.map(c => c.text.replace(/\n/g, " ").trim()).filter(Boolean);
+  if (!join) return lines.join("\n") + "\n";
+  // Paragraph per silence gap > 4s, otherwise flow into one paragraph.
+  const paras = [];
+  let cur = [];
+  for (let i = 0; i < cues.length; i++) {
+    cur.push(lines[i]);
+    const next = cues[i + 1];
+    if (!next || next.start - cues[i].end > 4000) { paras.push(cur.join(" ")); cur = []; }
+  }
+  if (cur.length) paras.push(cur.join(" "));
+  return paras.join("\n\n") + "\n";
+}
+
+// ---------- transforms ----------
+function shiftCues(cues, delta) {
+  return cues.map(c => ({ ...c, start: c.start + delta, end: c.end + delta }));
+}
+
+function cleanCues(cues, opts) {
+  let out = cues.map(c => ({ ...c }));
+  if (opts.tags) out.forEach(c => {
+    c.text = c.text.replace(/<[^>\n]{0,40}>/g, "").replace(/\{\\?[^}\n]{0,40}\}/g, "");
+  });
+  if (opts.hi) out.forEach(c => {
+    c.text = c.text
+      .replace(/\[[^\]\n]*\]/g, "")
+      .replace(/\([A-Z][^)a-z\n]{1,60}\)/g, "")   // (SIGHS), (DOOR SLAMS) — caps-only
+      .replace(/^[A-Z][A-Z .'-]{1,25}:\s*/gm, ""); // SPEAKER NAME: prefixes
+  });
+  if (opts.space) out.forEach(c => {
+    c.text = c.text.split("\n").map(l => l.replace(/\s+/g, " ").trim()).filter(Boolean).join("\n");
+  });
+  if (opts.blank) out = out.filter(c => c.text.trim().length);
+  if (opts.overlap) {
+    for (let i = 0; i < out.length - 1; i++) {
+      if (out[i].end > out[i + 1].start) out[i].end = out[i + 1].start;
+    }
+  }
+  // renumbering happens implicitly in toSRT; opts.renum kept for clarity
+  return out;
+}
+
+function replaceCues(cues, find, repl, useRegex) {
+  if (!find) return cues;
+  let re;
+  if (useRegex) {
+    try { re = new RegExp(find, "g"); } catch { return null; }
+  } else {
+    re = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+  }
+  return cues.map(c => ({ ...c, text: c.text.replace(re, repl) }));
+}
+
+// ---------- UI ----------
+const $ = id => document.getElementById(id);
+const input = $("input"), output = $("output"), inStatus = $("inStatus"), outStatus = $("outStatus");
+let lastFormat = "srt"; // remembered for shift/clean/replace output & download extension
+
+function currentCues() {
+  const cues = parseCues(input.value);
+  if (!cues.length) {
+    inStatus.textContent = "No valid cues found — paste an SRT or VTT file.";
+    inStatus.className = "status warn";
+    return null;
+  }
+  inStatus.textContent = `${cues.length} cues parsed.`;
+  inStatus.className = "status ok";
+  return cues;
+}
+
+function detectFormat() {
+  return /^\s*WEBVTT/i.test(input.value) ? "vtt" : "srt";
+}
+
+function emit(cues, format) {
+  lastFormat = format;
+  output.value = format === "vtt" ? toVTT(cues) : format === "txt" ? toTranscript(cues, $("txtJoin").checked) : toSRT(cues);
+  outStatus.textContent = `${cues.length} cues → ${format.toUpperCase()}`;
+  outStatus.className = "status ok";
+}
+
+document.querySelectorAll("button[data-act]").forEach(btn => btn.addEventListener("click", () => {
+  const cues = currentCues();
+  if (!cues) return;
+  const act = btn.dataset.act;
+  if (act === "tosrt") emit(cues, "srt");
+  else if (act === "tovtt") emit(cues, "vtt");
+  else if (act === "totxt") emit(cues, "txt");
+  else if (act === "shiftplus" || act === "shiftminus") {
+    const ms = Math.abs(parseInt($("shiftMs").value, 10) || 0) * (act === "shiftplus" ? 1 : -1);
+    const shifted = shiftCues(cues, ms);
+    if (shifted.some(c => c.start < 0)) {
+      outStatus.textContent = "Warning: some cues shifted before 00:00 and were clamped.";
+      outStatus.className = "status warn";
+    }
+    emit(shifted, detectFormat());
+  }
+  else if (act === "clean") {
+    emit(cleanCues(cues, {
+      tags: $("cTags").checked, hi: $("cHi").checked, blank: $("cBlank").checked,
+      renum: $("cRenum").checked, space: $("cSpace").checked, overlap: $("cOverlap").checked,
+    }), detectFormat());
+  }
+  else if (act === "replace") {
+    const result = replaceCues(cues, $("findText").value, $("replText").value, $("frRegex").checked);
+    if (result === null) {
+      outStatus.textContent = "Invalid regex.";
+      outStatus.className = "status warn";
+      return;
+    }
+    emit(result, detectFormat());
+  }
+}));
+
+input.addEventListener("input", () => { if (input.value.trim()) currentCues(); });
+
+$("copy").addEventListener("click", async () => {
+  if (!output.value) return;
+  await navigator.clipboard.writeText(output.value);
+  outStatus.textContent = "Copied.";
+  outStatus.className = "status ok";
+});
+
+$("download").addEventListener("click", () => {
+  if (!output.value) return;
+  const ext = lastFormat === "txt" ? "txt" : lastFormat;
+  const blob = new Blob([output.value], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `subtitles.${ext}`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+// file input / drag-drop
+const drop = $("drop"), file = $("file");
+drop.addEventListener("click", () => file.click());
+file.addEventListener("change", () => file.files[0] && readFile(file.files[0]));
+["dragover", "dragleave", "drop"].forEach(ev => drop.addEventListener(ev, e => {
+  e.preventDefault();
+  drop.classList.toggle("dragover", ev === "dragover");
+  if (ev === "drop" && e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0]);
+}));
+function readFile(f) {
+  const r = new FileReader();
+  r.onload = () => { input.value = r.result; currentCues(); };
+  r.readAsText(f);
+}
+</script>
+</body>
+</html>
