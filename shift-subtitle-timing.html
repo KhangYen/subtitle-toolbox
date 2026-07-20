@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fix out-of-sync subtitles online — shift SRT/VTT timing | Subtitle Toolbox</title>
+<meta name="description" content="Subtitles appearing too early or too late? Shift every timestamp in an SRT or VTT file by any number of milliseconds, entirely in your browser. Free, no upload.">
+<link rel="canonical" href="https://khangyen.github.io/subtitle-toolbox/shift-subtitle-timing.html">
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --text:#1a1d21; --muted:#5c6470; --accent:#2563eb; --border:#d8dde3; --ok:#16794c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101318; --panel:#181d24; --text:#e8eaed; --muted:#98a1ad; --accent:#3b82f6; --border:#2a323d; --ok:#34d399; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  main, header, footer { max-width:760px; margin:0 auto; padding:0 20px; }
+  header { padding-top:24px; font-size:14px; }
+  header a { color:var(--accent); text-decoration:none; }
+  h1 { font-size:26px; margin:16px 0 8px; }
+  h2 { font-size:19px; margin:28px 0 8px; }
+  .cta { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:16px 0; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; border-radius:8px; padding:10px 16px; font-weight:600; text-decoration:none; }
+  .privacy { color:var(--ok); font-size:13px; margin:8px 0 0; }
+  table { border-collapse:collapse; width:100%; font-size:14px; }
+  td, th { border:1px solid var(--border); padding:8px 10px; text-align:left; }
+  a { color:var(--accent); }
+  ol li, ul li { margin:4px 0; }
+  footer { padding:32px 20px 40px; color:var(--muted); font-size:13px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Subtitles appear before people speak — which way do I shift?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Shift later (+). If subtitles lag behind the speech, shift earlier (−). Typical fixes are between 500 and 3000 milliseconds." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I work out the exact shift amount?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pause the video on an easy-to-spot line, note when the audio says it versus when the subtitle shows it, and subtract. One second equals 1000 ms. One or two trial rounds usually lands it." }
+    },
+    {
+      "@type": "Question",
+      "name": "The subtitles drift further out of sync as the video plays. Will a shift fix that?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — progressive drift means the subtitle file was made for a different frame rate or cut of the video. A constant shift only fixes a uniform offset. For drift, find a subtitle file matching your exact release, or use a tool that does linear rescaling." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header><a href="./">← Subtitle Toolbox</a> / Fix subtitle timing</header>
+<main>
+  <h1>Fix out-of-sync subtitles (SRT / VTT)</h1>
+  <p>The most common subtitle problem: the file is fine, but every line shows up a second or two off from the audio. The fix is to shift every timestamp by the same amount — no re-download, no video editing.</p>
+  <div class="cta">
+    <a class="btn" href="./">Open the resync tool</a>
+    <p class="privacy">✓ Runs 100% in your browser. Nothing is uploaded. No signup, no ads.</p>
+  </div>
+
+  <h2>Which direction do I shift?</h2>
+  <table>
+    <tr><th>Symptom</th><th>Fix</th></tr>
+    <tr><td>Subtitles appear <strong>before</strong> people speak (too early)</td><td>Shift <strong>later (+)</strong></td></tr>
+    <tr><td>Subtitles appear <strong>after</strong> people speak (too late)</td><td>Shift <strong>earlier (−)</strong></td></tr>
+  </table>
+
+  <h2>How to resync</h2>
+  <ol>
+    <li>Open <a href="./">Subtitle Toolbox</a> and drop in your <code>.srt</code> or <code>.vtt</code> file.</li>
+    <li>Estimate the offset: pause on a distinctive line and compare when it's <em>spoken</em> vs when it's <em>shown</em>. One second = 1000 ms. Typical fixes are 500–3000 ms.</li>
+    <li>Enter the amount under <strong>Resync</strong> and click <strong>Shift later (+)</strong> or <strong>Shift earlier (−)</strong>.</li>
+    <li>Download, test in your player, and repeat with a smaller amount if it's still slightly off. The output stays in the same format the input was in.</li>
+  </ol>
+  <p>If a shift would push a cue before 00:00, it's clamped at zero and the tool warns you — nothing silently breaks.</p>
+
+  <h2>Constant offset vs. progressive drift</h2>
+  <p>Be honest with yourself about which problem you have, because they need different fixes:</p>
+  <ul>
+    <li><strong>Constant offset</strong> — wrong by the same amount at minute 1 and minute 90. A single shift fixes it. This is the common case (different intro/logo lengths between releases).</li>
+    <li><strong>Progressive drift</strong> — starts in sync, ends seconds off (or vice versa). That's a frame-rate mismatch (e.g. 23.976 vs 25 fps) or a different cut. A constant shift <em>cannot</em> fix this; you need a subtitle file made for your exact release, or a tool that linearly rescales timestamps. This tool doesn't rescale — better to say so than half-fix your file.</li>
+  </ul>
+
+  <h2>FAQ</h2>
+  <p><strong>Is my file uploaded anywhere?</strong> No — the page has no backend and sends no network requests with your data.</p>
+  <p><strong>Does shifting change the text or formatting?</strong> No. Only the timestamps move; text, line breaks and tags stay exactly as they were.</p>
+  <p><strong>Player needs a different format?</strong> The same page converts: <a href="srt-to-vtt.html">SRT → VTT</a> or <a href="vtt-to-srt.html">VTT → SRT</a>.</p>
+
+  <h2>Related guides</h2>
+  <ul>
+    <li><a href="srt-to-vtt.html">Convert SRT to VTT</a></li>
+    <li><a href="vtt-to-srt.html">Convert VTT to SRT</a></li>
+    <li><a href="remove-hi-subtitles.html">Remove [sounds] and speaker names (SDH → normal subtitles)</a></li>
+  </ul>
+</main>
+<footer>
+  <p>Free forever, no signup, no ads. Built by an AI agent (Claude), supervised by a human. <a href="https://github.com/KhangYen/subtitle-toolbox/issues" rel="noopener">Feedback & commissions</a></p>
+</footer>
+<script>new Image().src = "https://cdn.jsdelivr.net/gh/KhangYen/subtitle-toolbox@main/pixel.png?t=" + Date.now();</script>
+</body>
+</html>

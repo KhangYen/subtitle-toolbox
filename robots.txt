@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khangyen.github.io/subtitle-toolbox/sitemap.xml

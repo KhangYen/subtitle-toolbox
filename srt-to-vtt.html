@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convert SRT to VTT online — free, private, no upload | Subtitle Toolbox</title>
+<meta name="description" content="Turn an .srt subtitle file into WebVTT (.vtt) for HTML5 video in seconds, entirely in your browser. Free, no signup, and your file is never uploaded.">
+<link rel="canonical" href="https://khangyen.github.io/subtitle-toolbox/srt-to-vtt.html">
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --text:#1a1d21; --muted:#5c6470; --accent:#2563eb; --border:#d8dde3; --ok:#16794c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101318; --panel:#181d24; --text:#e8eaed; --muted:#98a1ad; --accent:#3b82f6; --border:#2a323d; --ok:#34d399; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  main, header, footer { max-width:760px; margin:0 auto; padding:0 20px; }
+  header { padding-top:24px; font-size:14px; }
+  header a { color:var(--accent); text-decoration:none; }
+  h1 { font-size:26px; margin:16px 0 8px; }
+  h2 { font-size:19px; margin:28px 0 8px; }
+  .cta { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:16px 0; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; border-radius:8px; padding:10px 16px; font-weight:600; text-decoration:none; }
+  .privacy { color:var(--ok); font-size:13px; margin:8px 0 0; }
+  pre { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:13px; overflow-x:auto; }
+  a { color:var(--accent); }
+  ol li, ul li { margin:4px 0; }
+  footer { padding:32px 20px 40px; color:var(--muted); font-size:13px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is my subtitle file uploaded to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The converter runs entirely in your browser with no backend; your file never leaves your device." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between SRT and VTT?",
+      "acceptedAnswer": { "@type": "Answer", "text": "SRT uses numbered cues and comma decimal separators (00:00:01,000). WebVTT starts with a WEBVTT header, uses periods (00:00:01.000), and is the format HTML5 video players require for the <track> element." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why won't my browser video player show my .srt file?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The HTML5 <track> element only accepts WebVTT. Convert the .srt file to .vtt first, then reference it from the track tag." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header><a href="./">← Subtitle Toolbox</a> / SRT to VTT</header>
+<main>
+  <h1>Convert SRT to VTT online</h1>
+  <p>SubRip (<code>.srt</code>) is the format most subtitle downloads come in, but HTML5 video — the <code>&lt;track&gt;</code> element used by every browser-based player — only accepts WebVTT (<code>.vtt</code>). This free tool converts between them in one click.</p>
+  <div class="cta">
+    <a class="btn" href="./">Open the converter</a>
+    <p class="privacy">✓ Runs 100% in your browser. Nothing is uploaded. No signup, no ads.</p>
+  </div>
+
+  <h2>How to convert</h2>
+  <ol>
+    <li>Open <a href="./">Subtitle Toolbox</a> and drop your <code>.srt</code> file into the input panel (or paste its contents).</li>
+    <li>Under <strong>Convert</strong>, click <strong>→ VTT</strong>.</li>
+    <li>Click <strong>Download</strong> to save the <code>.vtt</code> file.</li>
+  </ol>
+
+  <h2>What actually changes</h2>
+  <p>The two formats are close cousins, which is why conversion is lossless in practice:</p>
+<pre>SRT                                VTT
+                                   WEBVTT
+1
+00:00:01,000 --> 00:00:04,000      00:00:01.000 --> 00:00:04.000
+Hello, world.                      Hello, world.</pre>
+  <ul>
+    <li>A <code>WEBVTT</code> header line is added at the top.</li>
+    <li>Timestamp decimal separators change from commas to periods.</li>
+    <li>The numeric cue indexes are dropped (VTT doesn't need them).</li>
+  </ul>
+  <p>The parser is deliberately lenient: mixed line endings, a stray BOM, missing blank lines, or slightly malformed timestamps are recovered where possible, so files that other converters reject often still work.</p>
+
+  <h2>Using the result with HTML5 video</h2>
+<pre>&lt;video controls src="movie.mp4"&gt;
+  &lt;track kind="subtitles" src="subtitles.vtt"
+         srclang="en" label="English" default&gt;
+&lt;/video&gt;</pre>
+  <p>Note the file must be served with the page (same origin or CORS-enabled) for the track to load.</p>
+
+  <h2>FAQ</h2>
+  <p><strong>Is my file uploaded anywhere?</strong> No — the page has no backend and sends no network requests with your data.</p>
+  <p><strong>Does it handle italics and formatting tags?</strong> Tags like <code>&lt;i&gt;</code> pass through unchanged during conversion. If you want them stripped, use the <em>Clean</em> action on the same page.</p>
+  <p><strong>Subtitles out of sync after converting?</strong> Conversion never changes timing — the sync issue was already there. Fix it with the <a href="shift-subtitle-timing.html">timing shift guide</a>.</p>
+
+  <h2>Related guides</h2>
+  <ul>
+    <li><a href="vtt-to-srt.html">Convert VTT to SRT</a></li>
+    <li><a href="shift-subtitle-timing.html">Fix out-of-sync subtitles (shift timing)</a></li>
+    <li><a href="remove-hi-subtitles.html">Remove [sounds] and speaker names (SDH → normal subtitles)</a></li>
+  </ul>
+</main>
+<footer>
+  <p>Free forever, no signup, no ads. Built by an AI agent (Claude), supervised by a human. <a href="https://github.com/KhangYen/subtitle-toolbox/issues" rel="noopener">Feedback & commissions</a></p>
+</footer>
+<script>new Image().src = "https://cdn.jsdelivr.net/gh/KhangYen/subtitle-toolbox@main/pixel.png?t=" + Date.now();</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convert VTT to SRT online — free, private, no upload | Subtitle Toolbox</title>
+<meta name="description" content="Turn a WebVTT (.vtt) file into SubRip (.srt) for TVs, media players and editing software, entirely in your browser. Free, no signup, and your file is never uploaded.">
+<link rel="canonical" href="https://khangyen.github.io/subtitle-toolbox/vtt-to-srt.html">
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --text:#1a1d21; --muted:#5c6470; --accent:#2563eb; --border:#d8dde3; --ok:#16794c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101318; --panel:#181d24; --text:#e8eaed; --muted:#98a1ad; --accent:#3b82f6; --border:#2a323d; --ok:#34d399; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  main, header, footer { max-width:760px; margin:0 auto; padding:0 20px; }
+  header { padding-top:24px; font-size:14px; }
+  header a { color:var(--accent); text-decoration:none; }
+  h1 { font-size:26px; margin:16px 0 8px; }
+  h2 { font-size:19px; margin:28px 0 8px; }
+  .cta { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:16px 0; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; border-radius:8px; padding:10px 16px; font-weight:600; text-decoration:none; }
+  .privacy { color:var(--ok); font-size:13px; margin:8px 0 0; }
+  pre { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px; font-size:13px; overflow-x:auto; }
+  a { color:var(--accent); }
+  ol li, ul li { margin:4px 0; }
+  footer { padding:32px 20px 40px; color:var(--muted); font-size:13px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is my subtitle file uploaded to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The converter runs entirely in your browser with no backend; your file never leaves your device." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I need SRT instead of VTT?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Many TVs, USB media players, video editors and older desktop players only recognize .srt files. VTT is a web format; SRT is the near-universal offline format." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is anything lost converting VTT to SRT?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Text and timing are preserved exactly. VTT-only extras that SRT cannot represent — cue position/alignment settings, NOTE comments and STYLE blocks — are dropped." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header><a href="./">← Subtitle Toolbox</a> / VTT to SRT</header>
+<main>
+  <h1>Convert VTT to SRT online</h1>
+  <p>WebVTT (<code>.vtt</code>) is what web players and YouTube caption exports produce — but most TVs, USB media sticks, video editors and classic desktop players (VLC aside) only look for SubRip (<code>.srt</code>). This free tool converts your file in one click.</p>
+  <div class="cta">
+    <a class="btn" href="./">Open the converter</a>
+    <p class="privacy">✓ Runs 100% in your browser. Nothing is uploaded. No signup, no ads.</p>
+  </div>
+
+  <h2>How to convert</h2>
+  <ol>
+    <li>Open <a href="./">Subtitle Toolbox</a> and drop your <code>.vtt</code> file into the input panel (or paste its contents).</li>
+    <li>Under <strong>Convert</strong>, click <strong>→ SRT</strong>.</li>
+    <li>Click <strong>Download</strong> to save the <code>.srt</code> file.</li>
+  </ol>
+
+  <h2>What actually changes</h2>
+  <ul>
+    <li>The <code>WEBVTT</code> header, <code>NOTE</code> comments and <code>STYLE</code> blocks are removed.</li>
+    <li>Timestamp decimal separators change from periods to commas (<code>00:00:01.000</code> → <code>00:00:01,000</code>).</li>
+    <li>Cues get sequential numbers, which SRT requires.</li>
+    <li>VTT short-form timestamps (<code>01:23.000</code>, no hour) are expanded to full <code>00:01:23,000</code>.</li>
+    <li>Cue settings after the timestamps (<code>align:start position:10%</code>…) are dropped — SRT has no way to express them. The subtitle text itself, including line breaks, is untouched.</li>
+  </ul>
+  <p>Named cue identifiers and other VTT quirks are handled leniently, so exports from YouTube, Zoom, Teams and similar tools convert cleanly.</p>
+
+  <h2>Tip: cleaning up machine captions</h2>
+  <p>Auto-generated VTT captions often carry <code>&lt;c&gt;</code> tags, sound descriptions like <code>[music]</code>, and inconsistent spacing. After converting, use the <em>Clean</em> action on the same page to strip tags and hearing-impaired annotations in one pass — see <a href="remove-hi-subtitles.html">the SDH-removal guide</a>.</p>
+
+  <h2>FAQ</h2>
+  <p><strong>Is my file uploaded anywhere?</strong> No — the page has no backend and sends no network requests with your data.</p>
+  <p><strong>My player still doesn't find the subtitles.</strong> Most players auto-load subtitles only when the <code>.srt</code> has exactly the same filename as the video (<code>Movie.mkv</code> + <code>Movie.srt</code>) in the same folder.</p>
+  <p><strong>Subtitles are out of sync?</strong> Conversion never changes timing. Fix sync with the <a href="shift-subtitle-timing.html">timing shift guide</a>.</p>
+
+  <h2>Related guides</h2>
+  <ul>
+    <li><a href="srt-to-vtt.html">Convert SRT to VTT</a></li>
+    <li><a href="shift-subtitle-timing.html">Fix out-of-sync subtitles (shift timing)</a></li>
+    <li><a href="remove-hi-subtitles.html">Remove [sounds] and speaker names (SDH → normal subtitles)</a></li>
+  </ul>
+</main>
+<footer>
+  <p>Free forever, no signup, no ads. Built by an AI agent (Claude), supervised by a human. <a href="https://github.com/KhangYen/subtitle-toolbox/issues" rel="noopener">Feedback & commissions</a></p>
+</footer>
+<script>new Image().src = "https://cdn.jsdelivr.net/gh/KhangYen/subtitle-toolbox@main/pixel.png?t=" + Date.now();</script>
+</body>
+</html>
