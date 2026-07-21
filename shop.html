@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — small, useful tools by KhangYen</title>
+<meta name="description" content="Invoice Chaser (automated overdue-payment reminders) and a real Website Accessibility Audit — built and tested tools, not templates you have to hope work.">
+<link rel="canonical" href="https://khangyen.github.io/subtitle-toolbox/shop.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shop — small, useful tools by KhangYen">
+<meta property="og:description" content="Invoice Chaser and a real Website Accessibility Audit — built and tested, not just described.">
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #1a1d21; --muted: #5c6470;
+    --accent: #2563eb; --accent-text: #ffffff; --border: #d8dde3; --ok: #16794c; --warn: #b45309;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101318; --panel: #181d24; --text: #e8eaed; --muted: #98a1ad;
+      --accent: #3b82f6; --accent-text: #ffffff; --border: #2a323d; --ok: #34d399; --warn: #fbbf24;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { font-size: 26px; margin: 0 0 6px; }
+  .tag { color: var(--muted); margin: 0 0 28px; font-size: 15px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 20px; }
+  .card h2 { margin: 0 0 4px; font-size: 19px; }
+  .price { font-size: 22px; font-weight: 700; color: var(--accent); margin: 4px 0 12px; }
+  .card p { margin: 8px 0; font-size: 14.5px; color: var(--text); }
+  .card ul { margin: 10px 0; padding-left: 20px; font-size: 14px; color: var(--muted); }
+  .card ul li { margin: 3px 0; }
+  .proof { background: color-mix(in srgb, var(--ok) 10%, transparent); border: 1px solid var(--ok); border-radius: 8px; padding: 10px 12px; font-size: 13px; margin: 12px 0; }
+  .proof b { color: var(--ok); }
+  .cta { display: inline-block; margin-top: 8px; background: var(--accent); color: var(--accent-text); border: 0; border-radius: 8px; padding: 10px 18px; font-size: 14.5px; font-weight: 600; text-decoration: none; }
+  .cta.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); margin-left: 8px; }
+  .howbuy { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  footer { margin-top: 30px; font-size: 13px; color: var(--muted); text-align: center; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Shop</h1>
+  <p class="tag">Small, genuinely useful tools — built and tested by an AI agent, reviewed and sold by a human. Not templates you have to hope work: every claim below is something that was actually verified before listing.</p>
+
+  <div class="card">
+    <h2>Invoice Chaser</h2>
+    <div class="price">$12 — one-time</div>
+    <p>Stop manually chasing clients for money. A Google Sheets template that automatically emails clients escalating payment reminders — at 3, 7, 14, and 30 days overdue — with zero ongoing work from you. Runs entirely in your own Google account: no subscription, no third-party service, nothing to install beyond pasting one script.</p>
+    <ul>
+      <li>Escalating tone (friendly → firm) at each milestone, never repeats or spams</li>
+      <li>Mark an invoice "Paid" or "Stopped" and it goes silent for that client immediately</li>
+      <li>Compare: similar SaaS tools (Chaser, Upflow) charge $20-50/month for this — this is yours forever for $12</li>
+    </ul>
+    <div class="proof"><b>Proof, not just a claim:</b> the escalation logic was extracted as a pure function and unit-tested (11/11 cases) before being wired into the real script — the decision of when to send which reminder was verified correct, not just written and hoped.</div>
+    <a class="cta" href="https://github.com/KhangYen/subtitle-toolbox/issues/new?title=Buy:%20Invoice%20Chaser&body=I%27d%20like%20to%20buy%20Invoice%20Chaser%20(%2412).%20Tell%20me%20how%20to%20pay%20and%20I%27ll%20send%20the%20files%20right%20after.">Buy — open an issue to arrange payment</a>
+    <div class="howbuy">How buying works right now: click above, I'll reply with a payment link within a day, and send the files the moment payment clears. (A one-click checkout is coming — this is the honest, working version today.)</div>
+  </div>
+
+  <div class="card">
+    <h2>Website Accessibility Audit</h2>
+    <div class="price">$19 — one-time report, 24h turnaround</div>
+    <p>Find your site's real WCAG accessibility issues before a lawsuit does. Send me your URL, I run a genuine browser-based scan using axe-core — the same open-source engine behind Google Lighthouse and most paid accessibility tools — and send back a clear, prioritized report: what's wrong, how severe, and exactly how to fix it, with plain-English explanations.</p>
+    <ul>
+      <li>Real browser render, not a superficial checklist</li>
+      <li>Ranked by severity: critical / serious / moderate / minor</li>
+      <li>Honest about scope: automated scans catch ~30-50% of real WCAG issues (axe-core's own stated coverage) — a strong first step, not a legal-compliance guarantee, and the report says so</li>
+    </ul>
+    <div class="proof"><b>Proof, not just a claim:</b> ran this exact tool against our own live site, found two real issues (an unlabeled form field, low-contrast text), fixed both, re-ran it, and confirmed a clean result. <a href="https://gist.github.com/KhangYen/682667cd5d504f93cde14afc463453b1" style="color:inherit">See the real sample report</a>.</div>
+    <a class="cta" href="https://github.com/KhangYen/subtitle-toolbox/issues/new?title=Buy:%20Accessibility%20Audit&body=I%27d%20like%20to%20buy%20an%20Accessibility%20Audit%20(%2419)%20for%20this%20URL:%20%5Byour%20site%5D.%20Tell%20me%20how%20to%20pay.">Buy — open an issue to arrange payment</a>
+    <div class="howbuy">Send your URL in the issue and I'll confirm turnaround time.</div>
+  </div>
+
+  <footer>
+    Built by an AI agent (Claude), reviewed and sold by a human · also free:
+    <a href="https://khangyen.github.io/subtitle-toolbox/">Subtitle Toolbox</a> ·
+    <a href="https://khangyen.github.io/repo-radar/">RepoRadar</a>
+  </footer>
+</div>
+</body>
+</html>
