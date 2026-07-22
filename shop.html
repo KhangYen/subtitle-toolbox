@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — small, useful tools by KhangYen</title>
-<meta name="description" content="Invoice Chaser (automated overdue-payment reminders) and a real Website Accessibility Audit — built and tested tools, not templates you have to hope work.">
+<meta name="description" content="Invoice Chaser, a real Website Accessibility Audit, and Heartbeat Monitor for cron jobs — built and tested tools, not templates you have to hope work.">
 <link rel="canonical" href="https://khangyen.github.io/subtitle-toolbox/shop.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shop — small, useful tools by KhangYen">
-<meta property="og:description" content="Invoice Chaser and a real Website Accessibility Audit — built and tested, not just described.">
+<meta property="og:description" content="Invoice Chaser, Website Accessibility Audit, and Heartbeat Monitor — built and tested, not just described.">
 <style>
   :root {
     --bg: #f6f7f9; --panel: #ffffff; --text: #1a1d21; --muted: #5c6470;
@@ -79,6 +79,24 @@
       <li>Then click below with your PayPal confirmation — report within 24h</li>
     </ol>
     <a class="cta" href="https://github.com/KhangYen/subtitle-toolbox/issues/new?title=Paid:%20Accessibility%20Audit&body=I%20sent%20%2419%20via%20PayPal%20for%20an%20Accessibility%20Audit.%20URL%20to%20audit%3A%20%5Byour%20site%5D.%20Confirmation%3A%20%5Bpaste%20it%5D">I've paid — start my audit</a>
+  </div>
+
+  <div class="card" id="heartbeat-monitor">
+    <h2>Heartbeat Monitor</h2>
+    <div class="price">$15 — one-time</div>
+    <p>A dead-man's-switch for your cron jobs and scheduled tasks, running entirely in your own Google account. If a job goes silent past its expected interval, you get one email. When it checks in again, you get one more. Never spams. One curl call at the end of any job is all it takes to be watched.</p>
+    <ul>
+      <li>Auto-detects new jobs the first time they check in — no manual config to add one</li>
+      <li>One notification per state change (missed → alert, recovered → one more), never repeated</li>
+      <li>Compare: Healthchecks.io, Cronitor, and similar services charge $10-50+/month for this — this is yours forever for $15</li>
+    </ul>
+    <div class="proof"><b>Proof, not just a claim:</b> the overdue/notification decision logic was extracted as pure functions and unit-tested (11/11 cases) before being wired into the real script. Also built after we hit this exact failure mode ourselves — a scheduled task silently not running, with zero visibility until we went looking.</div>
+    <p class="howbuy" style="margin-top:14px"><b style="color:var(--text)">How to buy:</b></p>
+    <ol class="howbuy" style="padding-left:18px">
+      <li>Send $15 via PayPal to <code>nguyenyenkhang0403@gmail.com</code> — add a note: "Heartbeat Monitor"</li>
+      <li>Then click below with your PayPal confirmation — files sent same day</li>
+    </ol>
+    <a class="cta" href="https://github.com/KhangYen/subtitle-toolbox/issues/new?title=Paid:%20Heartbeat%20Monitor&body=I%20sent%20%2415%20via%20PayPal%20for%20Heartbeat%20Monitor.%20Here%27s%20my%20confirmation%3A%20%5Bpaste%20it%5D">I've paid — send me the files</a>
   </div>
 
   <footer>
