@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to check your website's accessibility for free (before a lawsuit does) | Accessibility Audit</title>
+<meta name="description" content="Real, free tools to check your site's WCAG accessibility issues yourself — WAVE, axe DevTools, Lighthouse — plus what they miss and when a real audit is worth paying for.">
+<link rel="canonical" href="https://khangyen.github.io/subtitle-toolbox/check-website-accessibility-free.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to check your website's accessibility for free">
+<meta property="og:description" content="Real free tools, what they actually catch, and when it's worth paying for a proper check.">
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --text:#1a1d21; --muted:#5c6470; --accent:#2563eb; --border:#d8dde3; --ok:#16794c; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101318; --panel:#181d24; --text:#e8eaed; --muted:#98a1ad; --accent:#3b82f6; --border:#2a323d; --ok:#34d399; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .wrap { max-width:700px; margin:0 auto; padding:36px 20px 60px; }
+  h1 { font-size:25px; margin:0 0 6px; }
+  h2 { font-size:18px; margin:28px 0 8px; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 26px; }
+  p, li { font-size:15.5px; }
+  .tool { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin:12px 0; }
+  .tool b { display:block; margin-bottom:4px; }
+  .cta-box { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin:30px 0; }
+  .cta-box a.btn { display:inline-block; margin-top:10px; background:var(--accent); color:#fff; border-radius:8px; padding:9px 16px; text-decoration:none; font-weight:600; font-size:14.5px; }
+  a { color:var(--accent); }
+  footer { margin-top:36px; font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>How to check your website's accessibility for free</h1>
+  <p class="sub">Real tools, what they actually catch, and honestly, what they miss.</p>
+
+  <p>Website accessibility lawsuits (ADA Title III in the US) are a real, growing risk for small businesses, not just large companies — and most people find out there's a problem only after getting a letter. The good news: checking your own site takes about five minutes with tools that are genuinely free, not trial-and-upsell.</p>
+
+  <h2>Free tools that actually work</h2>
+
+  <div class="tool">
+    <b>WAVE (Web Accessibility Evaluation Tool)</b>
+    A browser extension from WebAIM. Install it, click it on any page, and it overlays icons directly on your site showing missing alt text, contrast issues, heading problems, and more — visually, right where the problem is. Good starting point precisely because it's visual, not a wall of text.
+  </div>
+
+  <div class="tool">
+    <b>axe DevTools browser extension</b>
+    Built by Deque, the same accessibility testing engine that powers Google Lighthouse and most commercial accessibility tools. Runs inside your browser's dev tools, gives a structured list of issues by severity.
+  </div>
+
+  <div class="tool">
+    <b>Chrome Lighthouse (built into Chrome)</b>
+    Open DevTools (F12) → Lighthouse tab → run an audit → check the Accessibility score. Already installed if you use Chrome; zero setup.
+  </div>
+
+  <h2>What none of these actually catch</h2>
+  <p>Here's the part usually left out of "free tool" lists: automated scanners like the ones above — including the axe-core engine underneath most of them — catch <b>roughly 30-50% of real WCAG issues</b>, by axe-core's own documented coverage. Things they structurally can't detect: whether alt text is <i>meaningfully descriptive</i> vs. just present, whether a page makes logical sense navigated by keyboard only, whether a screen reader user could actually complete a checkout flow. Those need an actual human trying to use the site that way.</p>
+
+  <p>So: run one of the free tools above today — it's a genuinely useful first pass and costs nothing. Whether you need to go further depends on your real exposure (how much traffic, how regulated your industry, whether you've already been contacted).</p>
+
+  <div class="cta-box">
+    <p>If you want a written report instead of reading a tool's raw output yourself — prioritized by severity, in plain English, with links to exactly how to fix each thing — that's the <b>Accessibility Audit</b> service: $19, 24h turnaround, same axe-core engine, honest about what automated scanning does and doesn't cover.</p>
+    <a class="btn" href="https://khangyen.github.io/subtitle-toolbox/shop.html">See it in the shop →</a>
+  </div>
+
+  <footer>
+    Also free: <a href="https://khangyen.github.io/subtitle-toolbox/">Subtitle Toolbox</a> · <a href="https://khangyen.github.io/repo-radar/">RepoRadar</a>.
+  </footer>
+</div>
+</body>
+</html>
