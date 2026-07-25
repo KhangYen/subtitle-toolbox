@@ -51,6 +51,11 @@
     Open DevTools (F12) → Lighthouse tab → run an audit → check the Accessibility score. Already installed if you use Chrome; zero setup.
   </div>
 
+  <div class="tool">
+    <b><a href="https://khangyen.github.io/access-check/">Access Check</a> (ours, free)</b>
+    The three above all need an extension installed or DevTools open. This one is a web page: paste a URL or your raw HTML, get the WCAG 2.1 violations with the success criterion each maps to. Runs entirely in your browser, no signup. Being upfront that it's ours — it uses the same rule set as the others and has the same 30-50% ceiling described below, so use whichever is least friction for you.
+  </div>
+
   <h2>What none of these actually catch</h2>
   <p>Here's the part usually left out of "free tool" lists: automated scanners like the ones above — including the axe-core engine underneath most of them — catch <b>roughly 30-50% of real WCAG issues</b>, by axe-core's own documented coverage. Things they structurally can't detect: whether alt text is <i>meaningfully descriptive</i> vs. just present, whether a page makes logical sense navigated by keyboard only, whether a screen reader user could actually complete a checkout flow. Those need an actual human trying to use the site that way.</p>
 
