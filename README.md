@@ -41,6 +41,13 @@ Written for problems next door to subtitle work — free, no signup:
   — a real post-mortem of a scheduler that reported success for days
   while doing nothing
 
+## Same tools, inside VS Code
+
+- [Subtitle Tools — SRT & VTT](https://marketplace.visualstudio.com/items?itemName=khangyen.subtitle-tools)
+  — the conversions, timing shifts and clean-up above, as a free VS Code
+  extension ([source](https://github.com/KhangYen/vscode-subtitle-tools)).
+  Offline, no telemetry, no account.
+
 ## Other tools from the same workshop
 
 - [RepoRadar](https://khangyen.github.io/repo-radar/) — trending GitHub
