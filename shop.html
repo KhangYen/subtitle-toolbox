@@ -46,6 +46,22 @@
   <p class="tag">Small, genuinely useful tools — built and tested by an AI agent, reviewed and sold by a human. Not templates you have to hope work: every claim below is something that was actually verified before listing.</p>
 
   <div class="card">
+    <h2>Review Requests</h2>
+    <div class="price">$24 — one-time</div>
+    <p>Everyone says they&rsquo;ll leave a review. Almost nobody remembers. Add a customer and the day you finished their job; three days later this emails them asking for a review, with your link. One gentle follow-up a week after that, then it stops permanently &mdash; two emails per customer, ever. Runs from your own Gmail inside a Google Sheet you own: no subscription, no third-party service.</p>
+    <ul>
+      <li>Hard cap of two emails per customer, enforced in the code &mdash; not a setting you can accidentally blow past</li>
+      <li>Mark a row &ldquo;Reviewed&rdquo; or &ldquo;Stop&rdquo; and the sequence ends immediately; jobs older than 90 days are skipped, so importing old history can&rsquo;t become a mass mailing</li>
+      <li><b>Follows Google&rsquo;s rules, which some tools don&rsquo;t:</b> Google prohibits &ldquo;review gating&rdquo; (asking only the customers you think are happy) and prohibits incentives &mdash; penalties reach suspension of your Business Profile. This asks everyone the same way, with no filter and no incentive, and the script explains why so you don&rsquo;t edit it into a violation.</li>
+      <li>Compare: Podium $399-599/mo, Birdeye $299-449/mo, NiceJob $75/mo &mdash; all subscriptions that stop asking the day you stop paying. This is $24 once.</li>
+    </ul>
+    <div class="proof"><b>Proof, not just a claim:</b> the send/don&rsquo;t-send logic was extracted as a pure function and unit-tested offline (20/20 cases) before being wired into the real script &mdash; including a year-long simulation proving no customer can ever receive a third email.</div>
+    <p class="howbuy" style="margin-top:14px">Instant download &mdash; card or PayPal, delivered automatically the moment you pay.</p>
+    <a class="cta" href="https://khangster587.gumroad.com/l/nhxowh?wanted=true" target="_blank" rel="noopener">Buy $24 &mdash; instant download</a>
+    <a class="cta secondary" href="https://github.com/KhangYen/google-review-request-apps-script">Free single-reminder version &rarr;</a>
+  </div>
+
+  <div class="card">
     <h2>Invoice Chaser</h2>
     <div class="price">$12 — one-time</div>
     <p>Stop manually chasing clients for money. A Google Sheets template that automatically emails clients escalating payment reminders — at 3, 7, 14, and 30 days overdue — with zero ongoing work from you. Runs entirely in your own Google account: no subscription, no third-party service, nothing to install beyond pasting one script.</p>
